@@ -194,11 +194,13 @@ const QuestionScreen = () => {
     setIsLoading(true);
     
     try {
-      const apiHost = import.meta.env.VITE_API_HOST 
+      const apiHost = import.meta.env.VITE_API_HOST || 'https://react.betteraskcat.club';
+      console.log('API Host:', apiHost);
+      console.log('All env vars:', import.meta.env);
       const baseUrl = `${apiHost}/api/one_card_info`;
+      console.log('Full URL:', baseUrl);
       const params = new URLSearchParams({
-        question: question.trim(),
-        ...(isTelegramApp && { telegram_user: JSON.stringify(window.Telegram.WebApp.initDataUnsafe?.user) })
+        question: question.trim()
       });
       const response = await fetch(`${baseUrl}?${params}`, {
         method: 'GET',
