@@ -188,8 +188,9 @@ const ResultScreen = () => {
 
     const loadCardImage = async () => {
       try {
-       
-        const imageUrl = import.meta.env.VITE_IMAGE_HOST + `/image/${cardData.card_name.includes('caps') ? 'caps/' : ''}${cardData.card_name.includes('cups') ? 'cups/' : ''}${cardData.card_name.includes('pentacles') ? 'pentacles/' : ''}${cardData.card_name.includes('swords') ? 'swords/' : ''}${cardData.card_name.includes('wands') ? 'wands/' : ''}${cardData.card_name.display_name}`;
+        const imageHost = import.meta.env.VITE_API_HOST || 'https://react.betteraskcat.club';
+
+        const imageUrl = imageHost + `/image/${cardData.card_name.includes('caps') ? 'caps+/' : ''}${cardData.card_name.includes('pentacles') ? 'pentacles/' : ''}${cardData.card_name.includes('swords') ? 'swords+/' : ''}${cardData.card_name.includes('wands') ? 'wands+/' : ''}${cardData.card_name.card_name}`;
         
         await new Promise(resolve => setTimeout(resolve, 1500));
         

@@ -165,7 +165,6 @@ const QuestionScreen = () => {
     showBackButton, 
     hideBackButton,
     setBackButton,
-    themeParams 
   } = useTelegram();
 
   useEffect(() => {
