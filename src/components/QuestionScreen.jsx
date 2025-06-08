@@ -194,18 +194,16 @@ const QuestionScreen = () => {
     setIsLoading(true);
     
     try {
-      const response = await fetch(import.meta.env.VITE_API_HOST + '/api/one_card_info', {
-        method: 'POST',
+      const baseUrl = `${import.meta.env.VITE_API_HOST}/api/one_card_info`;
+      const params = new URLSearchParams({
+        question: question.trim(),
+        ...(isTelegramApp && { telegram_user: JSON.stringify(window.Telegram.WebApp.initDataUnsafe?.user) })
+      });
+      const response = await fetch(`${baseUrl}?${params}`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          question: question.trim(),
-          // Add Telegram user info if available
-          ...(isTelegramApp && { 
-            telegram_user: window.Telegram.WebApp.initDataUnsafe?.user 
-          })
-        }),
+        }
       });
 
       if (response.ok) {
