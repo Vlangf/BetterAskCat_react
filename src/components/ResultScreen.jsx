@@ -190,7 +190,7 @@ const ResultScreen = () => {
       try {
         const imageHost = import.meta.env.VITE_API_HOST || 'https://react.betteraskcat.club';
 
-        const imageUrl = imageHost + `/image/${cardData.card_name.includes('caps') ? 'caps+/' : ''}${cardData.card_name.includes('pentacles') ? 'pentacles/' : ''}${cardData.card_name.includes('swords') ? 'swords+/' : ''}${cardData.card_name.includes('wands') ? 'wands+/' : ''}${cardData.card_name}.webp`;
+        const imageUrl = imageHost + `/image/${cardData.card_name.includes('cups') ? 'cups+/' : ''}${cardData.card_name.includes('pentacles') ? 'pentacles/' : ''}${cardData.card_name.includes('swords') ? 'swords+/' : ''}${cardData.card_name.includes('wands') ? 'wands+/' : ''}${cardData.card_name}.webp`;
         
         await new Promise(resolve => setTimeout(resolve, 1500));
         
@@ -235,13 +235,13 @@ const ResultScreen = () => {
         )}
         
         <CardName>
-          {cardData.display_name}
+          {cardData.card_display_name}
         </CardName>
         
         <CardImageContainer>
           <CardImage 
             src={cardImage} 
-            alt={cardData.display_name}
+            alt={cardData.card_name}
             onError={(e) => {
               e.target.src = DEFAULT_CARD_IMAGE;
             }}
@@ -249,7 +249,7 @@ const ResultScreen = () => {
         </CardImageContainer>
         
         <CardDescription>
-          {cardData.description}
+          {cardData.card_description}
         </CardDescription>
         
         <BackButton onClick={handleBackToStart}>

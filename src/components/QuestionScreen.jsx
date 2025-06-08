@@ -210,9 +210,18 @@ const QuestionScreen = () => {
       }
 
       const cardData = await response.json();
+      
+      if (!cardData?.card_display_name || !cardData?.card_description) {
+        throw new Error('Invalid card data received from server');
+      }
+
       navigate('/result', { 
         state: { 
-          cardData,
+          cardData: {
+            ...cardData,
+            display_name: cardData.card_display_name,
+            description: cardData.card_description
+          },
           question: question.trim()
         } 
       });
