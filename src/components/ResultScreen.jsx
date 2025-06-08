@@ -188,18 +188,14 @@ const ResultScreen = () => {
 
     const loadCardImage = async () => {
       try {
-        // Для реального API:
-        // const imageUrl = import.meta.env.VITE_IMAGE_HOST + `/card-image/${cardData.card_name.display_name}`;
-        // Для демонстрации используем изображение карты Таро из Unsplash
-        const imageUrl = `https://images.unsplash.com/photo-1551431009-a802eeec77b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80`;
+       
+        const imageUrl = import.meta.env.VITE_IMAGE_HOST + `/image/${cardData.card_name.includes('caps') ? 'caps/' : ''}${cardData.card_name.includes('cups') ? 'cups/' : ''}${cardData.card_name.includes('pentacles') ? 'pentacles/' : ''}${cardData.card_name.includes('swords') ? 'swords/' : ''}${cardData.card_name.includes('wands') ? 'wands/' : ''}${cardData.card_name.display_name}`;
         
-        // Симулируем задержку загрузки
         await new Promise(resolve => setTimeout(resolve, 1500));
         
         setCardImage(imageUrl);
       } catch (error) {
         console.error('Error loading card image:', error);
-        // Используем изображение по умолчанию
         setCardImage(DEFAULT_CARD_IMAGE);
       } finally {
         setIsLoadingImage(false);

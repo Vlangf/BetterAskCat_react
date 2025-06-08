@@ -195,10 +195,7 @@ const QuestionScreen = () => {
     
     try {
       const apiHost = import.meta.env.VITE_API_HOST || 'https://react.betteraskcat.club';
-      console.log('API Host:', apiHost);
-      console.log('All env vars:', import.meta.env);
       const baseUrl = `${apiHost}/api/one_card_info`;
-      console.log('Full URL:', baseUrl);
       const params = new URLSearchParams({
         question: question.trim()
       });
@@ -209,56 +206,25 @@ const QuestionScreen = () => {
         }
       });
 
-      if (response.ok) {
-        const cardData = await response.json();
-        navigate('/result', { 
-          state: { 
-            cardData,
-            question: question.trim()
-          } 
-        });
-      } else {
-        // Handle error with Telegram alert if in Telegram
-        if (isTelegramApp) {
-          showAlert('Произошла ошибка при получении ответа. Попробуйте еще раз.');
-        }
-        
-        // Use mock data as fallback
-        const mockCardData = {
-          card_name: {
-            display_name: "Звезда",
-            description: "Карта надежды, вдохновения и духовного руководства. Звезда символизирует обновление, исцеление и веру в будущее. Это время для мечтаний и следования своей интуиции."
-          }
-        };
-        
-        navigate('/result', { 
-          state: { 
-            cardData: mockCardData,
-            question: question.trim()
-          } 
-        });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+
+      const cardData = await response.json();
+      navigate('/result', { 
+        state: { 
+          cardData,
+          question: question.trim()
+        } 
+      });
     } catch (error) {
       console.error('Error fetching tarot reading:', error);
       
       if (isTelegramApp) {
-        showAlert('Произошла ошибка при получении ответа. Попробуйте еще раз.');
+        showAlert('Произошла ошибка при получении ответа. Пожалуйста, попробуйте еще раз позже.');
+      } else {
+        alert('Произошла ошибка при получении ответа. Пожалуйста, попробуйте еще раз позже.');
       }
-      
-      // Use mock data as fallback
-      const mockCardData = {
-        card_name: {
-          display_name: "Звезда",
-          description: "Карта надежды, вдохновения и духовного руководства. Звезда символизирует обновление, исцеление и веру в будущее. Это время для мечтаний и следования своей интуиции."
-        }
-      };
-      
-      navigate('/result', { 
-        state: { 
-          cardData: mockCardData,
-          question: question.trim()
-        } 
-      });
     } finally {
       setIsLoading(false);
     }
