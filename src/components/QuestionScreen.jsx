@@ -194,7 +194,7 @@ const QuestionScreen = () => {
     setIsLoading(true);
     
     try {
-      const response = await fetch(import.meta.env.VITE_API_HOST + '/api/tarot-reading', {
+      const response = await fetch(import.meta.env.VITE_API_HOST + '/api/one_card_info', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
