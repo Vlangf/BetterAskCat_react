@@ -194,7 +194,8 @@ const QuestionScreen = () => {
     setIsLoading(true);
     
     try {
-      const baseUrl = `${import.meta.env.VITE_API_HOST}/api/one_card_info`;
+      const apiHost = import.meta.env.VITE_API_HOST 
+      const baseUrl = `${apiHost}/api/one_card_info`;
       const params = new URLSearchParams({
         question: question.trim(),
         ...(isTelegramApp && { telegram_user: JSON.stringify(window.Telegram.WebApp.initDataUnsafe?.user) })

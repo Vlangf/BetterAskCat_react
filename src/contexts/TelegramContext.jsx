@@ -45,7 +45,20 @@ export const TelegramProvider = ({ children }) => {
     platform: webApp?.platform,
     colorScheme: webApp?.colorScheme,
     // Telegram Web App methods
-    showAlert: (message) => webApp?.showAlert(message),
+    showAlert: (message) => {
+      try {
+        if (webApp?.showAlert) {
+          webApp.showAlert(message);
+        } else {
+          // Fallback to browser alert if Telegram alert is not available
+          window.alert(message);
+        }
+      } catch (error) {
+        // Fallback to browser alert if Telegram alert fails
+        console.warn('Telegram alert failed, falling back to browser alert:', error);
+        window.alert(message);
+      }
+    },
     showConfirm: (message) => webApp?.showConfirm(message),
     showPopup: (params) => webApp?.showPopup(params),
     close: () => webApp?.close(),
