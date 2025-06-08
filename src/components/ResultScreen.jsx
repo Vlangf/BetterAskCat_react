@@ -190,7 +190,7 @@ const ResultScreen = () => {
       try {
         const imageHost = import.meta.env.VITE_API_HOST || 'https://react.betteraskcat.club';
 
-        const imageUrl = imageHost + `/image/${cardData.card_name.includes('caps') ? 'caps+/' : ''}${cardData.card_name.includes('pentacles') ? 'pentacles/' : ''}${cardData.card_name.includes('swords') ? 'swords+/' : ''}${cardData.card_name.includes('wands') ? 'wands+/' : ''}${cardData.card_name}`;
+        const imageUrl = imageHost + `/image/${cardData.card_name.includes('caps') ? 'caps+/' : ''}${cardData.card_name.includes('pentacles') ? 'pentacles/' : ''}${cardData.card_name.includes('swords') ? 'swords+/' : ''}${cardData.card_name.includes('wands') ? 'wands+/' : ''}${cardData.card_name}.webp`;
         
         await new Promise(resolve => setTimeout(resolve, 1500));
         
